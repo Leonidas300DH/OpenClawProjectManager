@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import TaskRepository, { Task } from '@/lib/repositories/taskRepository';
+import { Task } from '@/lib/repositories/taskRepository';
 
 export default function TasksPage() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -18,7 +18,9 @@ export default function TasksPage() {
   }, [filters]);
 
   const fetchTasks = async () => {
-    const filteredTasks = await TaskRepository.getTasks(filters);
+    const queryParams = new URLSearchParams(Object.entries(filters)).toString();
+    const response = await fetch(`/api/tasks?${queryParams}`);
+    const filteredTasks = await response.json();
     setTasks(filteredTasks);
   };
 
