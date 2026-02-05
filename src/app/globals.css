@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Backgrounds */
+  --bg-cyber-black: #050505;
+  --bg-cyber-dark: #0a0a0f;
+  --bg-cyber-glass: rgba(16, 16, 24, 0.6);
+  --bg-cyber-glass-hover: rgba(25, 25, 35, 0.7);
+  --bg-overlay: rgba(0, 0, 0, 0.8);
+
+  /* Text */
+  --text-white: #eeeeee;
+  --text-gray: #94a3b8;
+  --text-dim: #475569;
+
+  /* Accents */
+  --cyber-cyan: #00f0ff;
+  --cyber-cyan-dim: rgba(0, 240, 255, 0.1);
+  --cyber-magenta: #ff003c;
+  --cyber-magenta-dim: rgba(255, 0, 60, 0.2);
+  --cyber-yellow: #fcee0a;
+  --cyber-green: #00ff9f;
+
+  /* Borders */
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-dim: #475569;
+}
+
+@layer base {
+  html, body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-cyber-black);
+    color: var(--text-white);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer utilities {
+  /* Existing Stitch utilities */
+  .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+  .text-cyan { color: var(--cyber-cyan); }
+  .text-magenta { color: var(--cyber-magenta); }
+  .text-yellow { color: var(--cyber-yellow); }
+  .text-green { color: var(--cyber-green); }
+  .text-gray { color: var(--text-gray); }
+  .text-dim { color: var(--text-dim); }
+
+  .bg-glass {
+    background-color: var(--bg-cyber-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: var(--bg-cyber-black);
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--border-dim);
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--cyber-cyan);
+  }
+}
+
+@layer components {
+  /* Sidebar styles */
+  .sidebar {
+    @apply w-16 bg-[var(--bg-cyber-dark)] border-r border-[var(--border-default)] flex flex-col items-center py-5 z-10;
+  }
+
+  .sidebar-icon {
+    @apply w-10 h-10 rounded-lg flex items-center justify-center mb-4 text-[var(--text-gray)] cursor-pointer transition-all duration-200 ease-in-out border border-transparent hover:text-[var(--cyber-cyan)] hover:bg-[var(--cyber-cyan-dim)] hover:border-[var(--cyber-cyan)] hover:shadow-[0_0_10px_rgba(0,240,255,0.3)];
+  }
+
+  /* Top Bar Styles */
+  .top-bar {
+    @apply h-16 border-b border-[var(--border-default)] flex items-center justify-between px-6 bg-[rgba(5,5,5,0.8)] backdrop-blur-sm;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply h-8 px-3 flex items-center justify-center text-sm font-medium rounded-sm cursor-pointer transition-all duration-200 font-inter;
+  }
+
+  .btn-primary {
+    @apply bg-[var(--cyber-cyan-dim)] border border-[var(--cyber-cyan)] text-[var(--cyber-cyan)] hover:bg-[rgba(0,240,255,0.2)] hover:text-white hover:shadow-[0_0_10px_rgba(0,240,255,0.5)] hover:text-shadow-[0_0_5px_var(--cyber-cyan)];
+  }
+
+  .btn-ghost {
+    @apply bg-transparent border border-[var(--border-dim)] text-[var(--text-gray)] hover:bg-[rgba(255,255,255,0.05)] hover:text-[var(--text-white)] hover:border-[var(--text-gray)];
+  }
+
+  /* Kanban Styles */
+  .kanban-board {
+    @apply flex overflow-x-auto gap-6 pb-5 items-start w-full;
+  }
+
+  .kanban-column {
+    @apply w-80 min-w-[320px] flex flex-col h-full;
+  }
+
+  .kanban-column-header {
+    @apply flex items-center justify-between mb-4 px-1;
+  }
+
+  .kanban-card {
+    @apply bg-[var(--bg-cyber-glass)] border border-[var(--border-default)] p-4 rounded-sm cursor-grab transition-all duration-200 relative overflow-hidden hover:border-[rgba(255,255,255,0.2)] hover:translate-y-[-2px] hover:shadow-[0_4px_20px_rgba(0,0,0,0.5)];
+  }
+
+  .kanban-card::before {
+    content: '';
+    @apply absolute left-0 top-0 bottom-0 w-0.5 bg-[var(--card-accent,var(--text-dim))];
+  }
+
+  .priority-high { --card-accent: var(--cyber-magenta); }
+  .priority-med { --card-accent: var(--cyber-yellow); }
+  .priority-low { --card-accent: var(--cyber-green); }
+
+  /* Card Tags */
+  .card-tag {
+    @apply font-mono text-[10px] py-0.5 px-1.5 rounded-sm border uppercase;
+  }
+
+  .tag-bug { @apply border-[var(--cyber-magenta)] text-[var(--cyber-magenta)] bg-[var(--cyber-magenta-dim)]; }
+  .tag-feature { @apply border-[var(--cyber-cyan)] text-[var(--cyber-cyan)] bg-[var(--cyber-cyan-dim)]; }
+  .tag-design { @apply border-[var(--text-white)] text-[var(--text-white)] bg-[rgba(255,255,255,0.1)]; }
+
+  /* List View */
+  .list-view-table {
+    @apply w-full border-collapse;
+  }
+
+  .list-view-table th {
+    @apply text-left py-3 px-4 border-b border-[var(--border-default)] text-[var(--text-gray)] text-xs font-mono uppercase;
+  }
+
+  .list-view-table td {
+    @apply py-3 px-4 border-b border-[rgba(255,255,255,0.03)] text-sm;
+  }
+
+  .list-view-table tr:hover td {
+    @apply bg-[var(--bg-cyber-glass-hover)];
+  }
+
+  /* Status Dot */
+  .status-dot {
+    @apply w-2 h-2 rounded-full;
+  }
+  .status-dot-todo { @apply bg-[var(--text-dim)]; }
+  .status-dot-inprogress { @apply bg-[var(--cyber-cyan)] shadow-[0_0_5px_var(--cyber-cyan)]; }
+  .status-dot-done { @apply bg-[var(--cyber-green)]; }
+}
