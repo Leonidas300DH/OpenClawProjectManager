@@ -102,8 +102,11 @@ export default function Home() {
               <div className="avatar">MK</div>
             </div>
 
-            <div className="btn btn-primary">
-              + New Issue
+            <div className="btn btn-primary hover:bg-[rgba(0,240,255,0.2)] transition-all duration-200 ease-in-out">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="mr-2">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+              </svg>
+              New Issue
             </div>
           </div>
         </div>
@@ -111,20 +114,20 @@ export default function Home() {
         {/* View Switcher */}
         <div className="border-b border-[var(--border-default)] flex px-6 pt-3">
           <div 
-            className={`pb-3 mr-5 cursor-pointer ${view === 'kanban' 
+            className={`pb-3 mr-5 cursor-pointer group transition-all duration-200 ease-in-out ${view === 'kanban' 
               ? 'border-b-2 border-[var(--cyber-cyan)] text-white' 
-              : 'text-[var(--text-gray)] border-b-2 border-transparent'}`}
+              : 'text-[var(--text-gray)] border-b-2 border-transparent hover:text-[var(--cyber-cyan)] hover:opacity-80'}`}
             onClick={() => setView('kanban')}
           >
-            Kanban
+            <span className="group-hover:text-opacity-80">Kanban</span>
           </div>
           <div 
-            className={`pb-3 cursor-pointer ${view === 'list' 
+            className={`pb-3 cursor-pointer group transition-all duration-200 ease-in-out ${view === 'list' 
               ? 'border-b-2 border-[var(--cyber-cyan)] text-white' 
-              : 'text-[var(--text-gray)] border-b-2 border-transparent'}`}
+              : 'text-[var(--text-gray)] border-b-2 border-transparent hover:text-[var(--cyber-cyan)] hover:opacity-80'}`}
             onClick={() => setView('list')}
           >
-            List
+            <span className="group-hover:text-opacity-80">List</span>
           </div>
         </div>
 
@@ -149,7 +152,14 @@ export default function Home() {
                 
                 <div className="space-y-3">
                   {tasksByStatus.TODO.map(task => (
-                    <div key={task.id} className={`kanban-card priority-${task.priority.toLowerCase()}`}>
+                    <div 
+                      key={task.id} 
+                      className={`kanban-card priority-${task.priority.toLowerCase()} 
+                        transition-all duration-200 ease-in-out 
+                        hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(0,240,255,0.1)] 
+                        hover:border-[var(--cyber-cyan)] 
+                        cursor-pointer`}
+                    >
                       <div className="flex gap-1.5 mb-2">
                         {task.tags.map(tag => (
                           <span 
@@ -164,11 +174,11 @@ export default function Home() {
                           </span>
                         ))}
                       </div>
-                      <div className="text-sm mb-3">{task.title}</div>
+                      <div className="text-sm mb-3 group-hover:text-[var(--cyber-cyan)] transition-colors duration-200">{task.title}</div>
                       <div className="flex justify-between items-center text-xs">
                         <span className="text-dim font-mono">#{task.id.split('-')[1]}</span>
                         <div 
-                          className="avatar w-5 h-5 text-[8px]"
+                          className="avatar w-5 h-5 text-[8px] transition-all duration-200 group-hover:border-[var(--cyber-cyan)]"
                           title={task.assignee.name}
                         >
                           {task.assignee.initials}
@@ -196,7 +206,14 @@ export default function Home() {
                 
                 <div className="space-y-3">
                   {tasksByStatus.IN_PROGRESS.map(task => (
-                    <div key={task.id} className={`kanban-card priority-${task.priority.toLowerCase()}`}>
+                    <div 
+                      key={task.id} 
+                      className={`kanban-card priority-${task.priority.toLowerCase()} 
+                        transition-all duration-200 ease-in-out 
+                        hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(0,240,255,0.1)] 
+                        hover:border-[var(--cyber-cyan)] 
+                        cursor-pointer`}
+                    >
                       <div className="flex gap-1.5 mb-2">
                         {task.tags.map(tag => (
                           <span 
@@ -211,11 +228,11 @@ export default function Home() {
                           </span>
                         ))}
                       </div>
-                      <div className="text-sm mb-3">{task.title}</div>
+                      <div className="text-sm mb-3 group-hover:text-[var(--cyber-cyan)] transition-colors duration-200">{task.title}</div>
                       <div className="flex justify-between items-center text-xs">
                         <span className="text-dim font-mono">#{task.id.split('-')[1]}</span>
                         <div 
-                          className="avatar w-5 h-5 text-[8px]"
+                          className="avatar w-5 h-5 text-[8px] transition-all duration-200 group-hover:border-[var(--cyber-cyan)]"
                           title={task.assignee.name}
                         >
                           {task.assignee.initials}
@@ -240,7 +257,14 @@ export default function Home() {
                 
                 <div className="space-y-3">
                   {tasksByStatus.DONE.map(task => (
-                    <div key={task.id} className={`kanban-card priority-${task.priority.toLowerCase()}`} style={{ opacity: 0.7 }}>
+                    <div 
+                      key={task.id} 
+                      className={`kanban-card priority-${task.priority.toLowerCase()} 
+                        transition-all duration-200 ease-in-out 
+                        hover:opacity-90 
+                        opacity-70 
+                        cursor-pointer`}
+                    >
                       <div className="flex gap-1.5 mb-2">
                         {task.tags.map(tag => (
                           <span 
@@ -255,11 +279,11 @@ export default function Home() {
                           </span>
                         ))}
                       </div>
-                      <div className="text-sm mb-3">{task.title}</div>
+                      <div className="text-sm mb-3 text-[var(--text-dim)] group-hover:text-[var(--cyber-cyan)] transition-colors duration-200">{task.title}</div>
                       <div className="flex justify-between items-center text-xs">
                         <span className="text-dim font-mono">#{task.id.split('-')[1]}</span>
                         <div 
-                          className="avatar w-5 h-5 text-[8px]"
+                          className="avatar w-5 h-5 text-[8px] opacity-70 transition-all duration-200 group-hover:opacity-100"
                           title={task.assignee.name}
                         >
                           {task.assignee.initials}
