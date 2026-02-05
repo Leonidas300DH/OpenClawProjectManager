@@ -58,7 +58,7 @@ const StatusDot = () => (
 )
 
 // Reusable Avatar component
-const Avatar = ({ name, color = 'bg-gray-200', textColor = 'text-gray-600', border = true }) => {
+const Avatar = ({ name, color = 'bg-gray-200', textColor = 'text-gray-600', border = true }: { name?: string; color?: string; textColor?: string; border?: boolean }) => {
   const borderClass = border ? 'border border-white' : ''
   return (
     <div className={`w-6 h-6 rounded-full ${color} ${textColor} flex items-center justify-center text-[10px] font-medium ${borderClass}`}>
