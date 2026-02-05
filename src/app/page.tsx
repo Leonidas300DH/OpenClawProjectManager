@@ -1,7 +1,15 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Task } from '@/lib/repositories/taskRepository';
+
+// Type definition for Task
+interface Task {
+  id: string;
+  title: string;
+  description?: string;
+  status: 'TODO' | 'IN_PROGRESS' | 'DONE';
+  priority: 'LOW' | 'MEDIUM' | 'HIGH';
+}
 
 export default function TasksPage() {
   const [tasks, setTasks] = useState<Task[]>([]);
