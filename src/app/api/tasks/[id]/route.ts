@@ -2,14 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import TaskRepository from '@/lib/repositories/taskRepository';
 import { z } from 'zod';
 
-// Middleware to validate API key (same as in main tasks route)
-export async function middleware(req: NextRequest) {
+// API Key validation helper
+function validateApiKey(req: NextRequest): boolean {
   const apiKey = req.headers.get('X-API-Key');
   const expectedApiKey = process.env.API_KEY;
-
-  if (!apiKey || apiKey !== expectedApiKey) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  return !expectedApiKey || apiKey === expectedApiKey;
 }
 
 // Update task schema
